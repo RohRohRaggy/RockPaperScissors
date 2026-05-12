@@ -10,6 +10,28 @@ humanOutput.innerHTML = "Make your choice";
 computerOutput.innerHTML = "Deciding...";
 resultOutput.innerHTML = "Result";
 
+//play
+function play(event) {
+    humanChoice = event.target.id;
+    humanOutput.innerHTML = humanChoice;
+    rdmnum();
+    computerOutput.innerHTML = computerChoice;
+    getResult();
+}
+//random number function toegevoegd om herhaling te vermijden
+function rdmnum() {
+    const randomNumber = Math.floor(Math.random() * 3) + 1;
+    if (randomNumber === 1) {
+        computerChoice = 'rock';
+    }
+    if (randomNumber === 2) {
+        computerChoice = 'scissors';
+    }
+    if (randomNumber === 3) {
+        computerChoice = 'paper';
+    }
+}
+
 //RPS result
 function getResult() {
     if (humanChoice === computerChoice) {
@@ -28,55 +50,11 @@ function getResult() {
 
 //Button click event
 const rock = document.querySelector("#rock");
-rock.addEventListener("click", function (event) {
-    humanChoice = event.target.id;
-    humanOutput.innerHTML = humanChoice;
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
-    if (randomNumber === 1) {
-        computerChoice = 'rock';
-    }
-    if (randomNumber === 2) {
-        computerChoice = 'scissors';
-    }
-    if (randomNumber === 3) {
-        computerChoice = 'paper';
-    }
-    computerOutput.innerHTML = computerChoice;
-    getResult();
-});
+rock.addEventListener("click", play); //rock button event listener toegevoegd verwezen naar functie play()
 
 const paper = document.querySelector("#paper");
-paper.addEventListener("click", function (event) {
-    humanChoice = event.target.id;
-    humanOutput.innerHTML = humanChoice;
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
-    if (randomNumber === 1) {
-        computerChoice = 'rock';
-    }
-    if (randomNumber === 2) {
-        computerChoice = 'scissors';
-    }
-    if (randomNumber === 3) {
-        computerChoice = 'paper';
-    }
-    computerOutput.innerHTML = computerChoice;
-    getResult();
-});
+paper.addEventListener("click", play); //paper button event listener toegevoegd verwezen naar functie play()
 
 const scissors = document.querySelector("#scissors");
-scissors.addEventListener("click", function (event) {
-    humanChoice = event.target.id;
-    humanOutput.innerHTML = humanChoice;
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
-    if (randomNumber === 1) {
-        computerChoice = 'rock';
-    }
-    if (randomNumber === 2) {
-        computerChoice = 'scissors';
-    }
-    if (randomNumber === 3) {
-        computerChoice = 'paper';
-    }
-    computerOutput.innerHTML = computerChoice;
-    getResult();
-});
+scissors.addEventListener("click", play); //scissors button event listener toegevoegd verwezen naar functie play()
+
