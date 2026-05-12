@@ -20,15 +20,19 @@ function play(event) {
 }
 //random number function toegevoegd om herhaling te vermijden
 function rdmnum() {
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
-    if (randomNumber === 1) {
-        computerChoice = 'rock';
-    }
-    if (randomNumber === 2) {
-        computerChoice = 'scissors';
-    }
-    if (randomNumber === 3) {
-        computerChoice = 'paper';
+    const randomNumber = Math.floor(Math.random() * 3) + 1;   
+   switch (randomNumber) { //if statements vervangen door switch case
+        case 1:
+            computerChoice = 'rock';
+            break;
+        case 2:
+            computerChoice = 'scissors';
+            break;
+        case 3:
+            computerChoice = 'paper';
+            break;
+        default:
+            
     }
 }
 
@@ -48,13 +52,8 @@ function getResult() {
     }
 }
 
-//Button click event
-const rock = document.querySelector("#rock");
-rock.addEventListener("click", play); //rock button event listener toegevoegd verwezen naar functie play()
-
-const paper = document.querySelector("#paper");
-paper.addEventListener("click", play); //paper button event listener toegevoegd verwezen naar functie play()
-
-const scissors = document.querySelector("#scissors");
-scissors.addEventListener("click", play); //scissors button event listener toegevoegd verwezen naar functie play()
-
+//Button click event ingekort
+const btns = document.querySelectorAll("button");
+btns.forEach(btn => {
+    btn.addEventListener("click", play);
+});
