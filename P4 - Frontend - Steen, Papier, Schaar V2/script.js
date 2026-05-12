@@ -1,11 +1,23 @@
 //span elements
 const humanOutput = document.querySelector("#human");
+const humanWins = document.querySelector("#HWins");
+const humanLosses = document.querySelector("#HLosses");
 const computerOutput = document.querySelector("#computer");
+const computerWins = document.querySelector("#CPUWins");
+const computerLosses = document.querySelector("#CPULosses");
 const resultOutput = document.querySelector("#result");
 
+let hWinsCount = 0;
+let hLossesCount = 0;
+let cpuWinsCount = 0;
+let cpuLossesCount = 0;
 let humanChoice = "";
 let computerChoice = "";
 
+humanWins.innerHTML = hWinsCount;
+humanLosses.innerHTML = hLossesCount;
+computerWins.innerHTML = cpuWinsCount;
+computerLosses.innerHTML = cpuLossesCount;
 humanOutput.innerHTML = "Make your choice";
 computerOutput.innerHTML = "Deciding...";
 resultOutput.innerHTML = "Result";
@@ -20,8 +32,8 @@ function play(event) {
 }
 //random number function toegevoegd om herhaling te vermijden
 function rdmnum() {
-    const randomNumber = Math.floor(Math.random() * 3) + 1;   
-   switch (randomNumber) { //if statements vervangen door switch case
+    const randomNumber = Math.floor(Math.random() * 3) + 1;
+    switch (randomNumber) { //if statements vervangen door switch case
         case 1:
             computerChoice = 'rock';
             break;
@@ -32,7 +44,7 @@ function rdmnum() {
             computerChoice = 'paper';
             break;
         default:
-            
+
     }
 }
 
@@ -47,9 +59,17 @@ function getResult() {
         (humanChoice === "scissors" && computerChoice === "paper")
     ) {
         resultOutput.innerHTML = "You win!";
+        hWinsCount++;
+        cpuLossesCount++;
     } else {
         resultOutput.innerHTML = "CPU wins!";
+        hLossesCount++;
+        cpuWinsCount++;
     }
+    humanWins.innerHTML = hWinsCount;
+    humanLosses.innerHTML = hLossesCount;
+    computerWins.innerHTML = cpuWinsCount;
+    computerLosses.innerHTML = cpuLossesCount;
 }
 
 //Button click event ingekort
