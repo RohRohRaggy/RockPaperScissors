@@ -1,24 +1,28 @@
+/* Main container layout */
 .game-container {
     display: flex;
-    justify-content: space-between; /* Verdeelt de kolommen over de breedte */
+    justify-content: space-between; /* Spreads the columns evenly across the width */
     align-items: flex-start;
     text-align: center;
     margin-top: 50px;
     font-family: sans-serif;
 }
 
+/* Individual column styling */
 .column {
-    flex: 1; /* Elke kolom krijgt evenveel ruimte */
+    flex: 1; /* Gives each column equal width */
     display: flex;
-    flex-direction: column; /* Zet tekst onder elkaar */
+    flex-direction: column; /* Stacks text vertically */
     gap: 10px;
 }
 
+/* Center column specific styling */
 .middle-side {
     justify-content: center;
-    align-self: center; /* Zorgt dat het midden ook verticaal gecentreerd is */
+    align-self: center; /* Centers the middle section vertically */
 }
 
+/* Button container layout */
 .buttons {
     display: flex;
     gap: 10px;
@@ -26,13 +30,15 @@
     margin-bottom: 20px;
 }
 
+/* Styling for preformatted text inside buttons */
 button pre {
     margin: 0;
-    pointer-events: none; /* Zorgt dat de tekst je klik niet 'blokkeert' */
+    pointer-events: none; /* Prevents text from blocking the button click */
     font-family: monospace;
     line-height: 1.1;
 }
 
+/* General button styling */
 button {
     cursor: pointer;
     padding: 10px;
@@ -41,7 +47,7 @@ button {
     align-items: center;
 }
 
-/* Optioneel: styling voor de tekst */
+/* Header styling */
 h2 {
     margin-bottom: 5px;
     border-bottom: 2px solid #333;

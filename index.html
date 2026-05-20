@@ -2,40 +2,52 @@
 <html lang="en">
 
 <head>
+    <!-- Defines character encoding -->
     <meta charset="UTF-8">
+    <!-- Ensures proper scaling on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title shown in the browser tab -->
     <title>🪨📄✂️</title>
+    <!-- Links the external CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Main wrapper for the entire game layout -->
     <div class="game-container">
-    <!-- Linker kolom: Player -->
-    <div class="column player-side">
-        <h2>Player</h2>
-        <p>Wins: <span id="HWins">0</span></p>
-        <p>Losses: <span id="HLosses">0</span></p>
-        <p>Choice: <span id="human">Make your choice</span></p>
-    </div>
-
-    <!-- Middelste kolom: Buttons & Resultaat -->
-    <div class="column middle-side">
-        <div class="buttons">
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>
+        
+        <!-- Left column: Player stats and choices -->
+        <div class="column player-side">
+            <h2>Player</h2>
+            <!-- Spans with IDs allow JavaScript to update the text dynamically -->
+            <p>Wins: <span id="HWins">0</span></p>
+            <p>Losses: <span id="HLosses">0</span></p>
+            <p>Choice: <span id="human">Make your choice</span></p>
         </div>
-        <p class="result-text">Result: <span id="result">Result</span></p>
-    </div>
 
-    <!-- Rechter kolom: Computer -->
-    <div class="column cpu-side">
-        <h2>Computer</h2>
-        <p>Wins: <span id="CPUWins">0</span></p>
-        <p>Losses: <span id="CPULosses">0</span></p>
-        <p>Choice: <span id="computer">Deciding...</span></p>
+        <!-- Middle column: Action buttons and game outcome -->
+        <div class="column middle-side">
+            <!-- Container for the playable buttons -->
+            <div class="buttons">
+                <button id="rock">Rock</button>
+                <button id="paper">Paper</button>
+                <button id="scissors">Scissors</button>
+            </div>
+            <!-- Displays the winner of the current round -->
+            <p class="result-text">Result: <span id="result">Result</span></p>
+        </div>
+
+        <!-- Right column: Computer stats and choices -->
+        <div class="column cpu-side">
+            <h2>Computer</h2>
+            <p>Wins: <span id="CPUWins">0</span></p>
+            <p>Losses: <span id="CPULosses">0</span></p>
+            <p>Choice: <span id="computer">Deciding...</span></p>
+        </div>
+
     </div>
-</div>
+    
+    <!-- Links the external JavaScript file containing game logic -->
     <script src="script.js"></script>
 </body>
 
