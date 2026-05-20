@@ -27,6 +27,8 @@
 
         <!-- Middle column: Action buttons and game outcome -->
         <div class="column middle-side">
+            <!-- Displays the winner of the current round -->
+            <p class="result-text">Result: <span id="result">Result</span></p>
             <!-- Container for the playable buttons -->
             <div class="buttons">
                 <button id="rock">Rock</button>
@@ -35,8 +37,6 @@
                 <button id="lizard">Lizard</button>
                 <button id="spock">Spock</button>
             </div>
-            <!-- Displays the winner of the current round -->
-            <p class="result-text">Result: <span id="result">Result</span></p>
         </div>
 
         <!-- Right column: Computer stats and choices -->
@@ -49,6 +49,13 @@
 
     </div>
 
+    <svg style="display: none;">
+        <defs>
+            <filter id="smear-filter">
+                <feGaussianBlur stdDeviation="0 10" />
+            </filter>
+        </defs>
+    </svg>
     <!-- Links the external JavaScript file containing game logic -->
     <script src="script.js"></script>
 </body>

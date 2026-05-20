@@ -19,7 +19,8 @@
 /* Center column specific styling */
 .middle-side {
     justify-content: center;
-    align-self: center; /* Centers the middle section vertically */
+    align-self: flex-start; /* Centers the middle section vertically */
+    margin-top: 300px; /* Adjusts vertical alignment with the images */
 }
 
 /* Button container layout */
@@ -53,3 +54,21 @@ h2 {
     border-bottom: 2px solid #333;
 }
 
+/* Keeps the added hand images sized correctly inside the columns */
+.choice-img {
+    width: 177px;          /* Increased size slightly so they stand out */
+    height: 177px;         /* Explicit height locks them into a perfect square */
+    object-fit: cover;     /* Crops different aspect ratios to fill the box nicely */
+    border-radius: 8px;    /* Adds clean rounded corners to the images */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional subtle shadow for depth */
+    display: block;
+    margin: 15px auto 0 auto;
+}
+
+/* Motion blur effect for the image during the CPU roll */
+.cpu-rolling img {
+    filter: blur(4px) grayscale(0.3);
+    transform: scale(0.95);
+    opacity: 0.8;
+    transition: filter 0.05s ease;
+}

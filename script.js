@@ -7,6 +7,15 @@ const computerWins = document.querySelector("#CPUWins");
 const computerLosses = document.querySelector("#CPULosses");
 const resultOutput = document.querySelector("#result");
 
+//image choice for each option
+const choiceImages = {
+    rock: "images/Rock.jpeg",
+    paper: "images/paper.jpeg",
+    scissors: "images/scissors.jpeg",
+    lizard: "images/Lizard.jpeg",
+    spock: "images/Spock.jpeg"
+};
+
 // Initialize scores and choices
 let hWinsCount = 0;
 let hLossesCount = 0;
@@ -26,16 +35,45 @@ resultOutput.innerHTML = "Result";
 
 // Main function triggered on button click
 function play(event) {
-    // Get the player's choice from the button ID
+    // 1. Disable all buttons during the roll to prevent spamming
+    const allButtons = document.querySelectorAll("button");
+    allButtons.forEach(btn => btn.disabled = true);
+
+    // Get and display the player's choice instantly
     humanChoice = event.target.id;
-    humanOutput.innerHTML = humanChoice;
+    humanOutput.innerHTML = `<img src="${choiceImages[humanChoice]}" class="choice-img" alt="${humanChoice}">`;
 
-    // Generate the computer's choice
-    rdmnum();
-    computerOutput.innerHTML = computerChoice;
+    // Set a temporary rolling state for the results text
+    resultOutput.innerHTML = "Rolling...";
+    
+    // Add the motion blur class to the computer output container
+    computerOutput.classList.add("cpu-rolling");
 
-    // Check who won
-    getResult();
+    let rollCount = 0;
+    const maxRolls = 15; // Number of times it cycles (15 rolls * 70ms = ~1 second total spin)
+
+    // 2. Start the slot machine rolling loop
+    const rollInterval = setInterval(() => {
+        rdmnum(); // Generates a random temporary computerChoice
+        
+        // Flash the temporary random image on the screen
+        computerOutput.innerHTML = `<img src="${choiceImages[computerChoice]}" class="choice-img" alt="${computerChoice}">`;
+        rollCount++;
+
+        // 3. When the rolling time finishes:
+        if (rollCount >= maxRolls) {
+            clearInterval(rollInterval); // Stop the loop
+
+            // Remove the blur class so the final image snaps sharp
+            computerOutput.classList.remove("cpu-rolling");
+
+            // Run your logic on the final locked-in choice
+            getResult();
+
+            // Re-enable the buttons for the next round
+            allButtons.forEach(btn => btn.disabled = false);
+        }
+    }, 70); // Updates the image every 70 milliseconds
 }
 
 // Generates a random choice for the computer
