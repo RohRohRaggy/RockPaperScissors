@@ -29,11 +29,11 @@ function play(event) {
     // Get the player's choice from the button ID
     humanChoice = event.target.id;
     humanOutput.innerHTML = humanChoice;
-    
+
     // Generate the computer's choice
     rdmnum();
     computerOutput.innerHTML = computerChoice;
-    
+
     // Check who won
     getResult();
 }
@@ -42,9 +42,9 @@ function play(event) {
 function rdmnum() {
     // Pick a random number between 1 and 3
     const randomNumber = Math.floor(Math.random() * 3) + 1;
-    
+
     // Assign rock, paper, or scissors based on the number
-    switch (randomNumber) { 
+    switch (randomNumber) {
         case 1:
             computerChoice = 'rock';
             break;
@@ -53,6 +53,12 @@ function rdmnum() {
             break;
         case 3:
             computerChoice = 'paper';
+            break;
+        case 4:
+            computerChoice = 'lizard';
+            break;
+        case 5:
+            computerChoice = 'spock';
             break;
         default:
     }
@@ -65,20 +71,25 @@ function getResult() {
         resultOutput.innerHTML = "It's a tie!";
     } else if (
         // Winning conditions for the player
-        (humanChoice === "rock" && computerChoice === "scissors") ||
-        (humanChoice === "paper" && computerChoice === "rock") ||
-        (humanChoice === "scissors" && computerChoice === "paper")
+        (humanChoice === "rock" && (computerChoice === "scissors" || computerChoice === "lizard")) ||
+        (humanChoice === "paper" && (computerChoice === "rock" || computerChoice === "spock")) ||
+        (humanChoice === "scissors" && (computerChoice === "paper" || computerChoice === "lizard")) ||
+        (humanChoice === "lizard" && (computerChoice === "spock" || computerChoice === "paper")) ||
+        (humanChoice === "spock" && (computerChoice === "scissors" || computerChoice === "rock"))
     ) {
-        resultOutput.innerHTML = "You win!";
+        // Player wins if their choice beats the computer's choice
+        let ruleText = winRules[humanChoice + "-" + computerChoice];
+        resultOutput.innerHTML = "You win! " + ruleText;
         hWinsCount++;
         cpuLossesCount++;
     } else {
         // CPU wins if it is not a tie and the player didn't win
-        resultOutput.innerHTML = "CPU wins!";
+        let ruleText = winRules[computerChoice + "-" + humanChoice];
+        resultOutput.innerHTML = "CPU wins! " + ruleText;
         hLossesCount++;
         cpuWinsCount++;
     }
-    
+
     // Update the score display
     humanWins.innerHTML = hWinsCount;
     humanLosses.innerHTML = hLossesCount;
@@ -91,3 +102,17 @@ const btns = document.querySelectorAll("button");
 btns.forEach(btn => {
     btn.addEventListener("click", play);
 });
+
+// Define the rules for winning combinations
+const winRules = {
+    "rock-scissors": "Rock crushes Scissors",
+    "rock-lizard": "Rock crushes Lizard",
+    "paper-rock": "Paper covers Rock",
+    "paper-spock": "Paper disproves Spock",
+    "scissors-paper": "Scissors cuts Paper",
+    "scissors-lizard": "Scissors decapitates Lizard",
+    "lizard-spock": "Lizard poisons Spock",
+    "lizard-paper": "Lizard eats Paper",
+    "spock-scissors": "Spock smashes Scissors",
+    "spock-rock": "Spock vaporizes Rock"
+};
