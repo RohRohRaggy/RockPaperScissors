@@ -35,45 +35,67 @@ resultOutput.innerHTML = "Result";
 
 // Main function triggered on button click
 function play(event) {
-    // 1. Disable all buttons during the roll to prevent spamming
+    // Disable all buttons during the roll to prevent spamming inputs
     const allButtons = document.querySelectorAll("button");
     allButtons.forEach(btn => btn.disabled = true);
 
-    // Get and display the player's choice instantly
+    // Get and display the player's choice instantly using an image tag
     humanChoice = event.target.id;
-    humanOutput.innerHTML = `<img src="${choiceImages[humanChoice]}" class="choice-img" alt="${humanChoice}">`;
+    humanOutput.innerHTML = `<img src="${choiceImages[humanChoice]}" class="choice-img" id="player-img" alt="${humanChoice}">`;
 
-    // Set a temporary rolling state for the results text
+    // Reset layout text status and clear old color animation classes
     resultOutput.innerHTML = "Rolling...";
-    
-    // Add the motion blur class to the computer output container
+    resultOutput.classList.remove("text-win", "text-lose");
     computerOutput.classList.add("cpu-rolling");
 
     let rollCount = 0;
-    const maxRolls = 15; // Number of times it cycles (15 rolls * 70ms = ~1 second total spin)
+    const maxRolls = 30; // Total cycles before settling on the choice
 
-    // 2. Start the slot machine rolling loop
+    // Start the slot machine rolling loop
     const rollInterval = setInterval(() => {
-        rdmnum(); // Generates a random temporary computerChoice
-        
-        // Flash the temporary random image on the screen
-        computerOutput.innerHTML = `<img src="${choiceImages[computerChoice]}" class="choice-img" alt="${computerChoice}">`;
+        rdmnum(); 
+        computerOutput.innerHTML = `<img src="${choiceImages[computerChoice]}" class="choice-img" id="cpu-img" alt="${computerChoice}">`;
         rollCount++;
 
-        // 3. When the rolling time finishes:
+        // When the rolling loop finishes:
         if (rollCount >= maxRolls) {
-            clearInterval(rollInterval); // Stop the loop
+            clearInterval(rollInterval); 
 
-            // Remove the blur class so the final image snaps sharp
+            // Stop the vertical smear blur effect
             computerOutput.classList.remove("cpu-rolling");
 
-            // Run your logic on the final locked-in choice
-            getResult();
+            // Calculate the score, update scoreboard, and capture the winner
+            const winner = getResult();
 
-            // Re-enable the buttons for the next round
+            // Grab the fresh image element references from the DOM
+            const playerImg = document.querySelector("#player-img");
+            const cpuImg = document.querySelector("#cpu-img");
+
+            // Apply specific green/red colors and shake classes based on the winner
+            if (winner === "player") {
+                resultOutput.classList.add("text-win");
+                if (playerImg) playerImg.classList.add("img-win");
+                if (cpuImg) cpuImg.classList.add("img-lose");
+            } else if (winner === "cpu") {
+                resultOutput.classList.add("text-lose");
+                if (playerImg) playerImg.classList.add("img-lose");
+                if (cpuImg) cpuImg.classList.add("img-win");
+            } else if (winner === "tie") {
+                if (playerImg) playerImg.classList.add("impact-shake");
+                if (cpuImg) cpuImg.classList.add("impact-shake");
+            }
+
+            // Clean up all animation and border glow classes after 600ms
+            setTimeout(() => {
+                resultOutput.classList.remove("text-win", "text-lose");
+                if (playerImg) playerImg.classList.remove("img-win", "img-lose", "impact-shake");
+                if (cpuImg) cpuImg.classList.remove("img-win", "img-lose", "impact-shake");
+            }, 600);
+
+            // Re-enable the action buttons for the next round
             allButtons.forEach(btn => btn.disabled = false);
         }
-    }, 70); // Updates the image every 70 milliseconds
+    }, 40); // Runs every 40ms for a rapid rolling animation
 }
 
 // Generates a random choice for the computer
@@ -102,11 +124,14 @@ function rdmnum() {
     }
 }
 
-// Calculates the winner and updates scores
+// Calculates the winner, updates scores, and returns results for animations
 function getResult() {
+    let winner = "";
+
     // Check for a tie
     if (humanChoice === computerChoice) {
         resultOutput.innerHTML = "It's a tie!";
+        winner = "tie";
     } else if (
         // Winning conditions for the player
         (humanChoice === "rock" && (computerChoice === "scissors" || computerChoice === "lizard")) ||
@@ -120,19 +145,24 @@ function getResult() {
         resultOutput.innerHTML = "You win! " + ruleText;
         hWinsCount++;
         cpuLossesCount++;
+        winner = "player";
     } else {
         // CPU wins if it is not a tie and the player didn't win
         let ruleText = winRules[computerChoice + "-" + humanChoice];
         resultOutput.innerHTML = "CPU wins! " + ruleText;
         hLossesCount++;
         cpuWinsCount++;
+        winner = "cpu";
     }
 
-    // Update the score display
+    // Update the score displays inside the HTML
     humanWins.innerHTML = hWinsCount;
     humanLosses.innerHTML = hLossesCount;
     computerWins.innerHTML = cpuWinsCount;
     computerLosses.innerHTML = cpuLossesCount;
+
+    // Send the outcome string back to play() to handle color classes
+    return winner;
 }
 
 // Attach click event listeners to all buttons

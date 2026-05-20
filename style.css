@@ -72,3 +72,48 @@ h2 {
     opacity: 0.8;
     transition: filter 0.05s ease;
 }
+
+/* Intense physical shake animation */
+@keyframes intense-shake {
+    0% { transform: translateX(0); }
+    15% { transform: translateX(-12px) rotate(-2deg); }
+    30% { transform: translateX(10px) rotate(2deg); }
+    45% { transform: translateX(-8px) rotate(-1deg); }
+    60% { transform: translateX(6px) rotate(1deg); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+}
+
+/* Class to trigger the shake on the images */
+.impact-shake {
+    animation: intense-shake 0.4s ease-in-out;
+}
+
+/* Result Text Flashes */
+@keyframes flash-green-text {
+    0%, 100% { color: black; }
+    30%, 70% { color: #2ecc71; text-shadow: 0 0 10px rgba(46, 204, 113, 0.5); }
+}
+
+@keyframes flash-red-text {
+    0%, 100% { color: black; }
+    30%, 70% { color: #e74c3c; text-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
+}
+
+/* Image Border Glow Flashes */
+@keyframes glow-green-img {
+    0%, 100% { box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-color: transparent; }
+    30%, 70% { box-shadow: 0 0 20px #2ecc71; border: 3px solid #2ecc71; }
+}
+
+@keyframes glow-red-img {
+    0%, 100% { box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-color: transparent; }
+    30%, 70% { box-shadow: 0 0 20px #e74c3c; border: 3px solid #e74c3c; }
+}
+
+/* Helper classes to trigger via JavaScript */
+.text-win { animation: flash-green-text 0.6s ease-in-out; }
+.text-lose { animation: flash-red-text 0.6s ease-in-out; }
+
+.img-win { animation: intense-shake 0.4s ease-in-out, glow-green-img 0.6s ease-in-out; }
+.img-lose { animation: intense-shake 0.4s ease-in-out, glow-red-img 0.6s ease-in-out; }
