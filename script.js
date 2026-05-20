@@ -7,7 +7,7 @@ const computerWins = document.querySelector("#CPUWins");
 const computerLosses = document.querySelector("#CPULosses");
 const resultOutput = document.querySelector("#result");
 
-//image choice for each option
+// Image choice file paths for each option
 const choiceImages = {
     rock: "images/Rock.jpeg",
     paper: "images/paper.jpeg",
@@ -24,7 +24,7 @@ let cpuLossesCount = 0;
 let humanChoice = "";
 let computerChoice = "";
 
-// Set initial text on the screen
+// Set initial text and values on the screen
 humanWins.innerHTML = hWinsCount;
 humanLosses.innerHTML = hLossesCount;
 computerWins.innerHTML = cpuWinsCount;
@@ -103,7 +103,7 @@ function rdmnum() {
     // Pick a random number between 1 and 5
     const randomNumber = Math.floor(Math.random() * 5) + 1;
 
-    // Assign rock, paper, or scissors based on the number
+    // Assign choices based on the number
     switch (randomNumber) {
         case 1:
             computerChoice = 'rock';
@@ -184,3 +184,4 @@ const winRules = {
     "spock-scissors": "Spock smashes Scissors",
     "spock-rock": "Spock vaporizes Rock"
 };
+
