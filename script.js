@@ -40,8 +40,8 @@ function play(event) {
 
 // Generates a random choice for the computer
 function rdmnum() {
-    // Pick a random number between 1 and 3
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
+    // Pick a random number between 1 and 5
+    const randomNumber = Math.floor(Math.random() * 5) + 1;
 
     // Assign rock, paper, or scissors based on the number
     switch (randomNumber) {
